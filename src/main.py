@@ -60,3 +60,27 @@ class Blockchain():
     def last_block(self):
         return self.chain[-1]
 
+    def proof_of_work(self, last_proof:int) -> int:
+        """
+        Simple Proof of Work - Algorithm:
+        - Ache o numero p' dado que hash(pp') contém seguido por 4 zeros, onde p é o p' anterior
+        - p é meu last_proof, e p' é minha nova proof
+        :param last_proof: <int>
+        """
+
+        proof = 0
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+        
+        return proof
+
+    @staticmethod
+    def valid_proof(last_proof, proof):
+        """
+        :param last_proof: <int> Previous Proof
+        : param proof: <int> Current Proof
+        """
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+        return guess_hash[:4] == "0000"
