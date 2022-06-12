@@ -7,6 +7,8 @@ class Blockchain():
         self.chain = []
         self.current_transactions = []
 
+        self.new_block(previous_hash=1, proof=100)
+
     def new_block(self, proof:int, previous_hash=None) -> dict:
         """
         Create a new Block in the Blockchain
