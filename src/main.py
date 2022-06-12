@@ -1,4 +1,7 @@
 from time import time
+import json
+import hashlib
+
 class Blockchain():
     def __init__():
         self.chain = []
@@ -42,12 +45,16 @@ class Blockchain():
         return self.last_block['index'] + 1
 
     @staticmethod
-    def hash(block):
-        # Hashes a block
-        pass
+    def hash(block) -> str:
+        """
+        Creates a SHA-256 hash of a Block
+        :param block: <dict> Block
+        """
+
+        block_string = json.dumps(block, sort_keys=True).encode()
+        return hashlib.sha256(block_string).hexdigest()
 
     @property
     def last_block(self):
-        # Returns the last block in the chain
-        pass
+        return self.chain[-1]
 
